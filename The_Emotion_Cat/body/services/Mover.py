@@ -56,10 +56,10 @@ class Mover:
         steps = tupl[2]
         self.controller.move_limb('head', [angle1, angle2, steps])
 
-    def __kitty_move(self, actions_parameters_list, functions_list):
+    def __kitty_move(self, actions_parameters_list):
         logging.debug(self.__class__.__name__ + ' - ' + '__kitty_move')
         threads = []
-        for action, fct in zip(actions_parameters_list, functions_list):
+        for action, fct in zip(actions_parameters_list, self.fct_list):
             t = threading.Thread(target=fct, args = [action])   
             t.daemon         
             threads.append(t)
@@ -71,6 +71,6 @@ class Mover:
     def move(self, move_list):
         logging.debug(self.__class__.__name__ + ' - ' + 'move')
         for move in move_list:
-            self.__kitty_move(move, self.fct_list)
+            self.__kitty_move(move)
             time.sleep(MOVE_PAUSE)
         time.sleep(1)
