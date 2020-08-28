@@ -1,17 +1,12 @@
-import numpy as np
-import argparse
-import matplotlib.pyplot as plt
 import cv2
 import os
 import imutils
 import time
 import pickle
 import face_recognition
+import numpy as np
 from threading import Thread
 from imutils.video import VideoStream
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from PIL import Image
 from brain.utils.model import create_model
 from resources.global_variables import *
 
@@ -48,7 +43,6 @@ class Brain:
             6: SURPRISED_STR
                 }
 
-        # initialize the video stream and allow the camera sensor to warm up
         print("[INFO] starting video stream...")
         vs = VideoStream(src=0, usePiCamera=True).start()
         time.sleep(CAMERA_SLEEP)
@@ -77,7 +71,9 @@ class Brain:
                 rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 
                 # detect faces in the grayscale frame
-                face_rectangles = detector.detectMultiScale(gray, scaleFactor=SCALE_FACTOR, 
+                face_rectangles = detector.detectMultiScale(
+                    gray, 
+                    scaleFactor=SCALE_FACTOR, 
                     minNeighbors=MIN_NEIGHBORS,
                     flags=cv2.CASCADE_SCALE_IMAGE)
 
