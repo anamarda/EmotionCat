@@ -54,6 +54,7 @@ MODEL_WEIGHS_PATH = 'brain/utils/model61.h5'
 MOVE_PAUSE = 0.3
 NEUTRAL_TRANS_PAUSE = 0.1
 OFFSET = 2
+OWNERS_PATH = 'brain/dataset_owner'
 MAIN_OWNER = 'ana'
 HOST = '192.168.1.104'  
 PORT = 65432        

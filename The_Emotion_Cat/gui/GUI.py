@@ -3,21 +3,9 @@ from tkinter import ttk, CENTER
 from PIL import ImageTk, Image
 import os
 
-class Login:
-    def __init__(self, _folder = "data/"):
-        self.folder = _folder
-        self.owner = None
-        
-    def get_owners(self):
-        return [f for f in os.listdir(self.folder)]
-        
-    def set_owner(self, _owner):
-        self.owner = _owner
-        print(self.owner)
-
-class GUI(tk.Frame):
-    def __init__(self, _login):
-        self.login = _login
+class GUI:
+    def __init__(self, _controller):
+        self.controller = _controller
 
         margin_clr = "black"
             
@@ -50,14 +38,11 @@ class GUI(tk.Frame):
         self.f3.grid(row=3, column=1)
         self.f4.grid(row=4, column=1)
         
-        
-        imagetest = tk.PhotoImage(file="whiskers.png")
         self.title_label = tk.Label(self.f1, 
                 text="THE EMOTION CAT", 
                 bg=margin_clr,
                 fg='white',
                 font='Helvetica 18 bold',
-                image=imagetest,
                 )
         self.title_label.pack(side="top") 
         
@@ -69,7 +54,7 @@ class GUI(tk.Frame):
                 )
         self.name_label.grid(row=1, column=0)
         
-        self.combo = ttk.Combobox(self.f2, values=self.login.get_owners())
+        self.combo = ttk.Combobox(self.f2, values=self.controller.get_owners())
         self.combo.grid(row=1, column=1, padx=1, pady=20)
         self.combo.bind("<<ComboboxSelected>>", self.__selectCombo)
         
@@ -142,21 +127,23 @@ class GUI(tk.Frame):
         self.train_btn.grid(row=3, column=0, columnspan=2, padx=150, pady=10)
 
     def __selectCombo(self, event):
-        self.login.set_owner(self.combo.get())
+        pass
         
     def __confirmButton(self):
-        print("confirm")
+        name = self.combo.get()
+        #verificare ca e ceva selectat
+        self.controller.start_emotion_prediction(name)
 
     def __registerButton(self):
-        print("register")
+        name = self.new_name.get()
+        self.controller.register_owner(name)
 
     def __trainButton(self):
-        print("train")
+        lr = self.lr.get()
+        decay = self.decay.get()
+        epochs = self.epochs.get()
+        self.controller.train(epochs, lr, decay)
 
     def show(self):
         self.root.mainloop()
-        
-login = Login()
-gui = GUI(login)
-gui.show()
 
