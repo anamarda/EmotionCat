@@ -1,17 +1,11 @@
 \documentclass[runningheads,a4paper,12pt]{report}
 
 \usepackage{geometry}
-
 \usepackage[latin1]{inputenc}
-
-%https://tex.stackexchange.com/questions/39227/no-indent-in-the-first-paragraph-in-a-section
 \usepackage{indentfirst} 
-
 \usepackage{multicol}
-
 \usepackage{subcaption}
 \usepackage{graphicx}
-
 \usepackage{verbatim} 
 \usepackage{gensymb}
 \usepackage{amsmath}
@@ -128,8 +122,6 @@
 
 \pagenumbering{arabic}
 
-
-%============== INTRODUCTION =============
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{ABSTRACT} 
 The subject of this thesis is the domain of the deep learning in Computer Vision applied in robotics. For this, the Viola-Jones algorithm has been used and integrated in an application to control a robot to recognize its owner, use a convolutional neural network to analyze and predict his or her facial emotion and then to reflect the resulting emotion through a series of suggestive movements. 
@@ -153,14 +145,17 @@ This work is the result of my own activity. I have neither given nor received un
 
 \newpage
 
-\chapter*{Introduction}
-==============to do
+\addcontentsline{toc}{chapter}{List of Figures} 
+\listoffigures
 
-- Autism Spectrum Disorders (ASD) are a group of life-long disabilities that affect people's communication and understanding social cue.
+\newpage
+
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction} 
+Autism Spectrum Disorders (ASD) are a group of life-long disabilities that affect people's communication.
+In general, individuals with this kind of disorders have several common features: 1) exhibit strengths in understanding the physical (object-related) world and relative weaknesses in understanding the social world \cite{how-children-with-asd-behave} and 2) are more intrinsically interested in treatment when it involves electronic or robotic components \cite{android-social-skills}.
 
 - autism - improving the social and emotional skills of children with autism
-
-- in general individuals with ASD: (a) exhibit strengths in understanding the physical (object-related) world and relative weaknesses in understanding the social world *referinta*, (b) are more responsive to feedback, even social feedback, when administered via technology rather than a human *referinta*, and (c) are more intrinsically interested in treatment when it involves electronic or robotic components *referinta*.
 
 - humans communicate through complex languages (nonverbal cues, such as haptics, kinesics, proxemics and paralanguage)
 
@@ -263,7 +258,8 @@ An application in this area is a robot navigating in an environment searching fo
 \subsection{Deep learning methods}
 For reaching a higher performance in complex data processing, such as images, recording or videos, a new area of machine learning developed. Deep learning is a specialization of artificial intelligence which uses multiple layers of calculus. 
 
-====================== CNN 
+\subsubsection*{Convolutional Neural Networks}
+
 
 \subsection{Facial Emotion Recognition methods}
 There are three main types of methods as far as facial emotion recognition (FER) is concerned: the holistic methods (modeling the human face deformations globally and encoding them as a whole), the analytical methods (measuring and observing local or distinctive human deformations such as eyes, mouth or nose and their geometrical relationships in order to create expressive models) and hybrid methods (a combination between the two of the above)\cite{automatic-analysis-of-facial-expressions}. 
@@ -411,8 +407,6 @@ Exemple cu Paro, Huggable, etc
 \section{Other disciplines related to the concerning thesis}
 
 \subsection{control (firmware)}
-\subsubsection{SSH}
-\label{section:ssh}
 \subsubsection{I2C}
 \label{section:i2c}
 \subsubsection{PWM}
@@ -423,7 +417,47 @@ Exemple cu Paro, Huggable, etc
 
 \subsubsection*{Inverse kinematics}
 \label{section:inverse-kinematics}
-cinematica inversa
+In mechanical engineering, a kinematic chain is an assembly of rigid bodies connected by joints to provide constrained (or desired) motion that is the mathematical model for a mechanical system. Inverse kinematics is the mathematical process of calculating the variable joint parameters needed to place the end of a kinematic chain.
+
+Given the particular case of a kinematic chain with two segments (figure \ref{fig:1_ik}), the task is to find a solution for q1 and q2 angles with the scope of the end of the kinematic chain, noted with $\xi_E$, to reach a given pair of coordinates (x, y). Each segment has a length, noted with $a_i$, in this case a1 and a2. 
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+  		\centering
+  		\includegraphics[width=\linewidth]{./images/1_inverse_kinematics}
+  		\caption{}
+  		\label{fig:ik_a}
+  	\end{subfigure} 
+  	%conteaza new line-urile, ai grija 
+  	\hfill  
+  	\begin{subfigure}{.45\textwidth}
+  		\centering
+  		\includegraphics[width=\linewidth]{./images/1_inverse_kinematics2}
+  		\caption{}
+  		\label{fig:ik_b}
+  	\end{subfigure} 
+  	\caption{Kinematic chain with two segments}
+  	\label{fig:1_ik}
+\end{figure}
+
+According to \cite{ik}, following a geometric demonstration, the solution is for 2 cases:
+
+For the case in figure \ref{fig:ik_a}:
+\[
+    q_2 = \arccos \frac{x^2 + y^2 - a_1^2 - a_2^2}{2 \cdot a_1 \cdot a_2}    
+\]
+\[
+    q_1 = \arctan \frac{y}{x} - \arctan \frac{a_2 \cdot \sin q_2}{a_1 + a2 \cdot \cos q_2}
+\]
+
+For the case in figure \ref{fig:ik_b}:
+\[
+    q_2 = - \arccos \frac{x^2 + y^2 - a_1^2 - a_2^2}{2 \cdot a_1 \cdot a_2}    
+\]
+\[
+    q_1 = \arctan \frac{y}{x} + \arctan \frac{a_2 \cdot \sin q_2}{a_1 + a2 \cdot \cos q_2}
+\]
 
 \subsection{mechanics}
 despre raspi
@@ -635,6 +669,18 @@ The mechanical design and the assemble of the robot can be found in
 
 =============== *referinta spre anexa X de care nu stiu daca trebuie sa faca parte din lucrare sau nu*.
 
+\subsection{Assemble}
+The assemble can be seen in figure \ref{fig:3_hardware}:
+
+\begin{figure}
+	\centering
+
+  	\includegraphics[width=\linewidth]{./images/3_hardware}\hfill
+
+    \caption{Robot assemble in SolidWorks}  
+    \label{fig:3_hardware}
+\end{figure}
+
 \section{Implementation}
 \label{chapter:implementation}
 
@@ -659,7 +705,7 @@ The domain handles the communication between software and hardware using an $I^2
 
 With two servomotors to control, both Leg and Head classes invoke one thread per servomotor in order to parallelize the commands. For a closer look to reality, the transition from the current angle to the new one should be as smooth as possible, so the servomotor goes through a set of intermediate states that brings it closer to the next angle with a given step size. The greater the step size, the fewer the intermediate states  and the faster it will reach the goal angle. 
 
-The leg angles calculations are obtained using inverse kinematics (see \ref{section:inverse-kinematics}) and the resulted angles are corrected according to the specific leg, after the following rule:
+The leg angles calculations are obtained using inverse kinematics (see \ref{section:inverse-kinematics}), applying the formulas for the case showed in figure \ref{fig:ik_a} with the difference that the starting position of the kinematic chain has the 2 segments at an angle of 50\textdegree. The resulted angles are corrected according to the specific leg, after the following rule:
 
 \begin{equation*}
     corrected\_angle = \begin{cases}
@@ -809,8 +855,6 @@ The last part of this class is represented by 3 short methods (figure \ref{fig:3
 
 ================ training
 
-The CNN's architecture was a true challenge given the limitations of the board which could not bear a very deep network. However, according to \cite{fer-cnn}, a 5 layered network would be able to learn discriminative high-level features.
-
 \subsection*{UML diagram}
 
 ================== to do
@@ -826,7 +870,7 @@ The CNN's architecture was a true challenge given the limitations of the board w
 
 \subsection{Dataset}
 \label{chapter:dataset}
-- dataset completat cu fata mea (cum s-a modificat)
+
 
 \subsection{Configurations}
 \label{chapter:configurations}
@@ -842,7 +886,16 @@ The CNN's architecture was a true challenge given the limitations of the board w
 
 \subsection{Performances}
 \label{chapter:performances}
-============= to do 
+The CNN's architecture was a true challenge given the limitations of the board which could not bear a very deep network. However, according to \cite{fer-cnn}, a 5 layered network would be able to learn discriminative high-level features. For a higher performance, the models were trained with different parameters adjustments. 
+
+In figure \ref{fig:result1}, with a learning rate of 0.001, a decay of $10^{-6}$ and 120 epochs, the best accuracy was 63,14\%. It can be observed that after 20 epochs the model reaches its maximum performance. After this, the accuracy stagnates and the loss easily goes up. Increasing the learning rate at the value 0.01, the results dramatically changed: after the first epoch, the model stagnates at an accuracy of 24,75\% and the training accuracy did not progress more than 25,15\% even after 50 epochs. The reason might be getting stuck in a local minimum because of an improper learning rate. 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{./images/3_results1}\hfill	
+	\caption{Performances: accuracy and loss}  
+    \label{fig:result1}
+\end{figure}
 
 
 %======== CONCLUSIONS ========
@@ -882,6 +935,11 @@ G. Bledt, M. J. Powell, B. Katz, J. Di Carlo, P. M. Wensing and S. Kim:
 \textit{MIT Cheetah 3: Design and Control of a Robust, Dynamic Quadruped Robot}, 
 2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Madrid, 2018, pp. 2245-2252, doi: 10.1109/IROS.2018.8593885.
 
+\bibitem{android-social-skills}
+G. Pioggia, R. Igliozzi, M. Ferro, A. Ahluwalia, F. Mura-tori, and D. De Rossi:
+\textit{An android for enhancing social skills and emotion recognition in people with autism},
+Neural Systems and Rehabilitation Engineering, IEEE Transactions on,13(4):507-515, 2005
+
 \bibitem{sophia}
 Hanson Robotics:
 \textit{Sophia},
@@ -917,6 +975,11 @@ Pantic, M., Rothkrantz, L.J.M.:
 \textit{Automatic analysis of facial expressions: The state of the art}, 
 Pattern Anal. Mach. Intell. IEEE Trans.22(12), (2000), 1424-1445.
 
+\bibitem{ik}
+Peter Corke:
+\textit{Inverse Kinematics for a 2-Joint Robot Arm Using Geometry},
+\texttt{https://robotacademy.net.au/lesson/inverse-kinematics-for-a-2-joint-robot-arm-using-geometry}
+
 \bibitem{aerospace-robot}
 Piper Thomson:
 \textit{6 Types of Robots Shaping Our World},
@@ -945,6 +1008,11 @@ Cambridge, MA,
 Rongzhong Li,
 \textit{Nybble - World's Cutest Open Source Robotic Kitten},
 \texttt{https://www.indiegogo.com/projects/nybble-world-s-cutest-open-source-robotic-kitten}
+
+\bibitem{how-children-with-asd-behave}
+S. M. Anzalone, E. Tilmont, S. Boucenna, J. Xavier, A.-L.Jouen, N. Bodeau, K. Maharatna, M. Chetouani, and D. Co-hen:
+\textit{How children with autism spectrum disorder behave andexplore the 4-dimensional (spatial 3d + time) environmentduring a joint attention induction task with a robot},
+Research in Autism Spectrum Disorders, 8(7):814 - 826, 2014.
 
 \bibitem{industrial-robot}
 Technavio:
