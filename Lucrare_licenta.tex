@@ -9,6 +9,8 @@
 \usepackage{verbatim} 
 \usepackage{gensymb}
 \usepackage{amsmath}
+\usepackage{float}
+
 
 \geometry{
  a4paper,
@@ -568,6 +570,7 @@ The application has four different windows. The first one is a home window in wh
 
 After starting the application, a new window will show (the fourth window) which will be the camera with the live predictions.
 
+\newpage
 
 \section{Hardware specifications}
 Schema eletrica
@@ -665,21 +668,60 @@ The Emotion Cat consists of 11 Micro Servomotors SG90 90\textdegree\footnote{htt
 \subsection*{3D printed parts}
 The rest of the robot is 3D printed and consists of 15 different pieces and 30 in total with a thickness of 3 millimeters each. They were mechanically designed using the computer program SolidWorks\footnote{https://www.solidworks.com/}, prepared for printing via a slicing application for 3D printers, called Cura\footnote{https://ultimaker.com/software/ultimaker-cura} and, finally, 3D printed\footnote{https://www.creality3dofficial.com/products/creality-ender-3-pro-3d-printer}.  
 
-The mechanical design and the assemble of the robot can be found in 
-
-=============== *referinta spre anexa X de care nu stiu daca trebuie sa faca parte din lucrare sau nu*.
-
-\subsection{Assemble}
-The assemble can be seen in figure \ref{fig:3_hardware}:
+\subsection*{Assemble}
+The mechanical design and assemble can be seen in figure \ref{fig:3_hardware}, as well as figure \ref{fig:3_hardware2} with different views. Several changes were made in order to adapt the robot to the current tasks: in figure \ref{fig:3_lateral} there are 2 orifices for power supplying and monitor connecting purposes, the holes in the support of the Raspberry Pi board in figure \ref{fig:3_bottom} as a cooling method, 3 little mechanical pins for the camera fixation in figure \ref{fig:3_front}. The tail helps the robot to balance.
+==============spune despre papucii din cauciuc
 
 \begin{figure}
 	\centering
 
-  	\includegraphics[width=\linewidth]{./images/3_hardware}\hfill
+  	\includegraphics[width=.6\linewidth]{./images/3_hardware}\hfill
 
-    \caption{Robot assemble in SolidWorks}  
+    \caption{Isometric view of the assemble in SolidWorks}  
     \label{fig:3_hardware}
 \end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.3\textwidth}
+  		\centering
+  		\includegraphics[width=\linewidth]{./images/3_hard_face}
+  		\caption{}
+  		\label{fig:3_frontal}
+  	\end{subfigure} 
+  	%conteaza new line-urile, ai grija 
+  	\hfill  
+  	\begin{subfigure}{.2\textwidth}
+  		\centering
+  		\includegraphics[width=\linewidth]{./images/3_hard_up}
+  		\caption{}
+  		\label{fig:3_top}
+  	\end{subfigure}
+  	\hfill  
+  	\begin{subfigure}{.25\textwidth}
+  		\centering
+  		\includegraphics[width=\linewidth]{./images/3_hard_down}
+  		\caption{}
+  		\label{fig:3_bottom}
+  	\end{subfigure}
+  	
+  	\begin{subfigure}{0.5\textwidth}
+  		\centering
+  		\includegraphics[width=\linewidth]{./images/3_hard_lateral}
+  		\caption{}
+  		\label{fig:3_lateral}
+  	\end{subfigure}
+  	\caption{Robot assemble: 
+  		(\subref{fig:3_frontal}) frontal view,
+  		(\subref{fig:3_top}) top view,
+  		(\subref{fig:3_bottom}) bottom view,
+  		(\subref{fig:3_lateral}) lateral view.
+  		}
+  	\label{fig:3_hardware2}
+\end{figure}
+
+\newpage
 
 \section{Implementation}
 \label{chapter:implementation}
@@ -869,7 +911,7 @@ The last part of this class is represented by 3 short methods (figure \ref{fig:3
 ====================== to do
 
 \subsection{Dataset}
-\label{chapter:dataset}
+\label{subsection:dataset}
 
 
 \subsection{Configurations}
@@ -897,6 +939,16 @@ In figure \ref{fig:result1}, with a learning rate of 0.001, a decay of $10^{-6}$
     \label{fig:result1}
 \end{figure}
 
+In figure \ref{fig:result2}, the learning rate was changed to 0.0001. The results were not better. The maximum accuracy was 62,36\% and the values started to stagnate around the 50th epoch. Even after 140 epochs, the accuracy did not improve.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{./images/3_results2}\hfill	
+	\caption{Performances: accuracy and loss}  
+    \label{fig:result2}
+\end{figure}
+
+After supplying the original dataset with the CK+ dataset and a set of personal images (see \ref{subsection:dataset}), the best model was trained. After reaching its maximum performance, the best accuracy was 62,12\%. Although the training accuracy improved faster, per total the model was weaker. 
 
 %======== CONCLUSIONS ========
 \chapter*{Conclusions and Future work}
