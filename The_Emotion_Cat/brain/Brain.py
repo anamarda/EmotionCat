@@ -14,11 +14,15 @@ class Brain:
     def __init__(self):
         self.crt_emotion = STARTING_EMOTION
         self.model_weighs_path = MODEL_WEIGHS_PATH
+        self.owner = None
         self.stopped = False
         self.restart = False
         self.destroy = False
         
-    def start(self):        
+    def set_owner(self, name):
+        self.owner = name     
+        
+    def start(self):   
         t = Thread(target=self.update, args=())
         t.daemon = True
         t.start()
@@ -113,7 +117,7 @@ class Brain:
                 emotions = []
                 try:
                     for ((x, y, w, h), name) in zip(boxes, names): 
-                        if name != MAIN_OWNER:
+                        if name != self.owner:
                             emotions.append("")
                             continue
                         try:
@@ -132,7 +136,7 @@ class Brain:
                         cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
                         y = top - 15 if top - 15 > 15 else top + 15
                         
-                        if name != MAIN_OWNER:
+                        if name != self.owner:
                             cv2.putText(frame, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX,
                                 0.75, (0, 255, 0), 2)
                         else:

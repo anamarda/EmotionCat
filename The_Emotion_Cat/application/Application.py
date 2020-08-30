@@ -5,9 +5,9 @@ class Cat:
         self.decision_maker = _decision_maker
         self.emotion_detector = _emotion_detector
         
+    def start(self, name):
+        self.emotion_detector.set_owner(name)
         self.emotion_detector.start()
-        
-    def start(self):
         while True:
             detected_emotion = self.emotion_detector.get_emotion()
             print("[INFO] Detected emotion: " + detected_emotion)
