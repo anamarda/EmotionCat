@@ -10,7 +10,10 @@
 \usepackage{gensymb}
 \usepackage{amsmath}
 \usepackage{float}
+\usepackage{array}
 
+\newcommand*{\vertbar}{\rule[-1ex]{0.5pt}{2.5ex}}
+\newcommand*{\horzbar}{\rule[.5ex]{2.5ex}{0.5pt}}
 
 \geometry{
  a4paper,
@@ -51,7 +54,8 @@
 
 \begin{flushleft}
 \LARGE{\textbf{Conduc\u ator \c stiin\c tific}}\\
-\LARGE{\textbf{Asist. drd. Miholca Diana-Lucia}}
+\LARGE{\textbf{Asist. drd. Miholca Diana-Lucia}}\\
+\LARGE{\textbf{Prof. dr. Czibula Gabriela}}
 \end{flushleft}
 
 \vspace{0.3cm}
@@ -96,7 +100,8 @@
 
 \begin{flushleft}
 \LARGE{\textbf{Supervisor}}\\
-\LARGE{\textbf{Assistant, PhD Student Miholca Diana-Lucia}}
+\LARGE{\textbf{Assistant, PhD Student Miholca Diana-Lucia}}\\
+\LARGE{\textbf{Prof. dr. Czibula Gabriela}}
 \end{flushleft}
 
 \vspace{0.5cm}
@@ -128,9 +133,9 @@
 \addcontentsline{toc}{chapter}{ABSTRACT} 
 The subject of this thesis is the domain of the deep learning in Computer Vision applied in robotics. For this, the Viola-Jones algorithm has been used and integrated in an application to control a robot to recognize its owner, use a convolutional neural network to analyze and predict his or her facial emotion and then to reflect the resulting emotion through a series of suggestive movements. 
 
-The thesis is structured in three chapters. The first chapter presents the theoretical aspects and all the information necessary for understanding this subject. The second chapter focuses on a review of similar projects that have been made and the results that have been achieved. The third chapter is an ample presentation about the proposed application alongside technical details, an user manual and experimental results. Finally, there will be a section of conclusions and future work.  
+The thesis is structured in three chapters. The first chapter presents the theoretical aspects and all the information necessary for understanding this subject. The second chapter focuses on a review of similar projects that have been made and the results that have been achieved. The third chapter is an ample presentation about the proposed application alongside technical details, an user manual and experimental results. Finally, there is a section of conclusions and future work.  
 
-An original aspect of this thesis consists in presenting, in an original manner, the current state of the art in the field of emotion detection as far as robotics field is concerned. Another original contribution consists in designing, implementing and documenting the application presented in the last chapter for solving the real time emotion recognition algorithm.
+An original aspect of this thesis consists in presenting, in an original manner, the current state of the art in the field of emotion detection as far as robotics field is concerned. Another original contribution consists in designing, implementing and documenting the application presented in the last chapter for solving the real time emotion recognition algorithm, as well as designing and building a robot on which to apply the algorithm.
 
 This work is the result of my own activity. I have neither given nor received unauthorized assistance on this work. 
 
@@ -257,11 +262,98 @@ At the very beginning, in any environmental conditions, the agent makes a consid
 
 An application in this area is a robot navigating in an environment searching for a target location. It is able to move at any time in one of a number of directions. After several trials it should be able to generate the correct sequence of actions to reach the target location as quickly as possible.  
 
-\subsection{Deep learning methods}
-For reaching a higher performance in complex data processing, such as images, recording or videos, a new area of machine learning developed. Deep learning is a specialization of artificial intelligence which uses multiple layers of calculus. 
+\subsection{Deep learning}
+For reaching a higher performance in complex data processing, such as images, recording or videos, a new area of machine learning developed. Deep learning is a specialization of artificial intelligence which uses multiple layers of calculus. The purpose of this field is to achieve the machine that can perceive the world as humans do or in a similar manner. One of the most famous algorithms used in deep learning are the convolutional neural networks. 
 
 \subsubsection*{Convolutional Neural Networks}
+As \cite{deep-learning} says, \textit{convolutional networks are perhaps the greatest success story of biologically inspired artificial intelligence}. The theory of convolutional networks began before the computational models were developed. Two neurophisiologists, David Hubel and Torsten Wiesel, laid the foundations of how the mammalian vision system works. They observed how a cat's neuron respond to different projected images and discovered that neurons in the early vision system strongly reacted to more specific patterns of light, such as precisely oriented bars, and reacted hardly at all to other patterns, discovery that brought them a Nobel prize. 
 
+\begin{figure}[h]
+	\centering
+
+  	\includegraphics[width=\linewidth]{./images/1_cnn_brain}\hfill
+
+    \caption{Similarities between a human cat recognition process from an image and a CNN's cat recognition process.}  
+    \label{fig:brain}
+\end{figure} 
+
+Today's convolutional neural networks (CNN), according to \ref{learning_def}, are said to learn from a dataset (experience E), with respect to a class of tasks such as image classifying, emotion detection, recomandation based systems, natural language processing (tasks T), and performance measure such as accuracy, loss, F1 score, (performance P), if the models' performance at the given task, as measured by
+the chosen metrics, improves with the experience given by the dataset. A CNN architecture resembles the human brain's neural connectivity model and they were inspired from the Visual Cortex (figure \ref{fig:brain}).
+
+Having a high quality image to analyze, the computational power would drastically increase. A CNN-s job is to reduce the image dimensions to one easier to process, keeping its quality and characteristics. 
+
+\paragraph{Convolutional layer\\}
+
+\begin{figure}[h]
+	\centering
+
+  	\includegraphics[width=0.7\linewidth]{./images/1_pixels}\hfill
+
+    \caption{3-channel separated image (RGB or red-green-blue)}  
+    \label{fig:pixels}
+\end{figure} 
+
+\begin{figure}[h]
+	\centering
+
+  	\includegraphics[width=0.7\linewidth]{./images/1_matrix_multiplication}\hfill
+
+    \caption{Example of matrix multiplication.}  
+    \label{fig:matrix_multiplication}
+\end{figure} 
+
+An image is visualized as a matrix of pixels (figure \ref{fig:pixels}). 
+
+The element involved in the convolutional process is called kernel or filter. In figure \ref{fig:matrix_multiplication}, the green matrix is the input image and the yellow matrix with red writing represents the applied kernel. The output is called convolved feature and is the result of the kernel multiplied with sections of the image. The output's first element calculation is presented below:
+\\
+
+${
+\left[
+  \begin{array}{ccc}
+    1 & 0 & 1 \\
+    0 & 1 & 0 \\
+    1 & 0 & 1 \\ 
+  \end{array}
+\right]
+}$ 
+applied on 
+${ 
+\left[
+  \begin{array}{ccc}
+    1 & 1 & 1 \\
+    0 & 1 & 1 \\
+    0 & 0 & 1 \\ 
+  \end{array}
+\right]
+\rightarrow}$
+\\
+\\
+${
+\rightarrow
+1 \cdot 1 + 0 \cdot 1 + 1 \cdot 1 + 0 \cdot 0 + 1 \cdot 1 + 0 \cdot 1 + 1 \cdot 0 + 0 \cdot 0 + 1 \cdot 1 = 4
+}$ 
+\\
+\\
+Depending on a parameter called Stride Length with a value X, the kernel shifts with X pixels, performing a matrix multiplication between itself and the portion of the image. In figure \ref{fig:matrix_multiplication} the stride length is 1, so the kernel shift with only one position resulting from a 5x5 input image in an 3x3 output image.
+
+The kernels move to the right with a given stride value until parsing the entire width. Then, it moves to the next row of pixels on the left of the image and repeats the process, thus traversing all the image.
+
+\begin{figure}[h]
+	\centering
+
+  	\includegraphics[width=0.5\linewidth]{./images/1_pooling}\hfill
+
+    \caption{Example for the two types of pooling layer.}  
+    \label{fig:pooling}
+\end{figure} 
+
+\paragraph{Pooling layer\\}
+Like the convolutional layer, the pooling layer also reduce the processed image's size by extracting the dominant feature from specific portions. There are two types of pooling: max pooling and average pooling. The first one returns the maximum value from the portion occupied by the kernel, while the second one returns the average value of all the values from the portion covered by the kernel. Figure \ref{fig:pooling} exemplifies the uses of the two of them, with a 2x2 kernel and a stride of 2.
+
+\paragraph{Fully connected layer\\}
+The fully connected layer is able to learn non-linear combinations and functions from that space. It is used in classification problems. 
+
+After a number of epochs, the model is able to distinguish between the dominant features and low-level features from a given image and to classify them using a Softmax Classification. This technique provides probabilities for each class label. The resulting class label has the highest probability.
 
 \subsection{Facial Emotion Recognition methods}
 There are three main types of methods as far as facial emotion recognition (FER) is concerned: the holistic methods (modeling the human face deformations globally and encoding them as a whole), the analytical methods (measuring and observing local or distinctive human deformations such as eyes, mouth or nose and their geometrical relationships in order to create expressive models) and hybrid methods (a combination between the two of the above)\cite{automatic-analysis-of-facial-expressions}. 
@@ -401,21 +493,57 @@ Figure \ref{fig:social-robots-fields} illustrates several social robots and thei
     \label{fig:social-robots-fields}
 \end{figure} 
 
-\subsubsection{Medical purposes}
-
-============= to do
-Exemple cu Paro, Huggable, etc
-
 \section{Other disciplines related to the concerning thesis}
 
-\subsection{control (firmware)}
-\subsubsection{I2C}
+\subsection{FIRMWARE}
+\subsubsection{Inter-Integrated Circuit}
 \label{section:i2c}
-\subsubsection{PWM}
-\label{section:pwm}
+Inter-Integrated Circuit (IIC or $I^{2}C$) is a synchronous, multi-slave, multi-masters protocol. It uses two wires in order to transmit data between devices.
 
-\subsection{electronics}
-\label{section:servomotor}
+\begin{figure}[h]
+	\centering
+
+  	\includegraphics[width=.8\linewidth]{./images/1_i2c}\hfill
+
+    \caption{Data transmission between two devices using $I^{2}C$ protocol}  
+    \label{fig:i2c}
+\end{figure} 
+
+In figure \ref{fig:i2c} SDA stands for Serial Data and signifies the wire with which the data is sent and received, while SCL stands for Serial Clock and it is the line that carries the clock signal. Being a serial communication, the data is transferred bit by bit along the SDA lina in the form of a message. Figure \ref{fig:i2c_message} shows from what a message is composed of.
+
+\begin{figure}[h]
+	\centering
+
+  	\includegraphics[width=\linewidth]{./images/1_i2c_message}\hfill
+
+    \caption{$I^{2}C$ message scheme}  
+    \label{fig:i2c}
+\end{figure}
+
+\begin{itemize}
+\item Start condition - signal that switches the SDA line from a high voltage level to a low voltage level before the SCL line swithes from high to low. It announces the start of the transmission of a new message.
+\item Address frame - the slave identification.
+\item Read/Write bit - it announce if the master is sending data to the slave or if it is requesting data from the slave.
+\item ACK/NACK Bit - each data frame is followed by this bit which is returned to the master from the receiving slave. ACK stands for acknowledged and it means that the data frame was successfully received, while the NACK bit means the opposite.  
+\item Data frame - a set of 8 bits of data.
+\item Stop condition - signal that switches the SDA line from a low voltage level to a high voltage level after the SCL line swithes from low to high. It announces the end of the transmission.
+\end{itemize}
+
+\subsubsection{Pulse-Width Modulation}
+\label{section:pwm}
+Pulse-Width Modulation (PWM) is a technique for getting analog results with digital means. There is a signal switched to on and off using digital control, resulting in a square wave. This on/off pattern simulates voltages between 5 Volts (on) and 0 Volts (off) by varying the time the signal spends on and the time the signal spends off (figure \ref{fig:pwm}).  
+
+\begin{figure}[h]
+	\centering
+
+  	\includegraphics[width=.6\linewidth]{./images/1_pwm}\hfill
+
+    \caption{Pulse-Width Modulation - varied duty cycles}  
+    \label{fig:i2c}
+\end{figure}
+
+\subsection{MECHANICS}
+\label{section:mechanics}
 
 \subsubsection*{Inverse kinematics}
 \label{section:inverse-kinematics}
@@ -461,16 +589,21 @@ For the case in figure \ref{fig:ik_b}:
     q_1 = \arctan \frac{y}{x} + \arctan \frac{a_2 \cdot \sin q_2}{a_1 + a2 \cdot \cos q_2}
 \]
 
-\subsection{mechanics}
-despre raspi
+\subsection{ELECTRONICS}
+This section offers information about the schematics of the necessary electrical components that compound the robot.
+\begin{itemize}
+\item Raspberry Pi Model B\footnote{https://www.raspberrypi.org/documentation/hardware/raspberrypi/schematics/rpi\_SCH\_4b\_4p0\_reduced.pdf} - a controller with a CPU.
 
-despre hat
+\item Pi Camera Module V2\footnote{https://www.raspberrypi.org/products/camera-module-v2/} - high quality camera for hobbyists.
 
-despre imprimanta 3d
+\item SparkFun Pi Hat\footnote{https://learn.sparkfun.com/tutorials/pi-servo-hat-hookup-guide/all\#hardware-overview} - servomotor driver, managing the communication between the CPU and the servomotors.
 
-despre servo-uri
+\item Micro Servomotor SG90\footnote{https://datasheetspdf.com/pdf/791970/TowerPro/SG90/1} - actuators. 
 
-schema eletrica?
+\item Ender 3 Pro 3D Printer\footnote{https://www.creality3dofficial.com/products/creality-ender-3-pro-3d-printer} - prints 3D plastic components.
+\end{itemize}
+
+\newpage
 
 %======== 2.LITERATURE REVIEW ========
 \chapter{Literature review}
@@ -478,7 +611,7 @@ schema eletrica?
 This chapter focuses on the obtained results of the related approaches in the field of emotion detection applied in robotics using machine learning. These results will serve as a measure reference for my own experimental results. A comparison between different emotion detection algorithms will be made, taking into consideration the hardware constraints and real world practicability. 
 
 \section{Nao humanoid robot}
-Nao humanoid robot (HR) is an autonomous, bipedal robot developed by Aldebaran Robotics\footnote{https://www.softbankrobotics.com/emea/en/nao} and it is briefly presented in figure \ref{fig:nao}. In \cite{nao-emotion} there are five stages that lead to the emotion detection: images are taken from Nao's camera, face is detected using Viola-Jones algorithm, facial distances measurements are taken using Geometrik based technique, movements of the measured points are detected using FACS (Facial Action Coding System) and emotion extractions. This paper concentrates only on four emotions: happiness, angriness, sadness and neutral. There was no dataset used in this experiment as emotions where classified based on a labelling system of facial points movements present in the fourth stage. The evaluation results are presented as a confusion matrix in figure \ref{table:nao}.
+Nao humanoid robot (HR) is an autonomous, bipedal robot developed by Aldebaran Robotics\footnote{https://www.softbankrobotics.com/emea/en/nao} and it is briefly presented in figure \ref{fig:nao}. In \cite{nao-emotion} there are five stages that lead to the emotion detection: images are taken from Nao's camera, face is detected using Viola-Jones algorithm, facial distances measurements are taken using Geometrik based technique, movements of the measured points are detected using FACS (Facial Action Coding System) and emotion extractions. This paper concentrates only on four emotions: happiness, angriness, sadness and neutral. There was no dataset used in this experiment as emotions where classified based on a labeling system of facial points movements present in the fourth stage. The evaluation results are presented as a confusion matrix in figure \ref{table:nao}.
 
 \begin{figure}[h]
 	\centering
@@ -497,9 +630,9 @@ Nao humanoid robot (HR) is an autonomous, bipedal robot developed by Aldebaran R
 In this work, the emotion of anger is the most misclassified - in one out of four cases it is classified as neutral.
 
 \section{Robokind R25 Robot}
-R25 social robot has been designed specifically in order to teach children with autism critical social skills. In \cite{automatic-emotion} the facial expression dataset was Cohn-Kanade (CK+) \cite{ck}. There were two conducted experiments: the first one with seven emotions (angry, disgusted, fearful, happy, neutral, sad, surprised) and the second one with six emotions (without "neutral"). The results are presented in figure \ref{fig:ck1}, respectively in figure \ref{fig:ck2}. The happy emotions is the best classified emotion reaching 100\% in all the tests. 
+R25 social robot has been designed specifically in order to teach children with autism critical social skills. In \cite{automatic-emotion} the facial expression dataset was Cohn-Kanade (CK+) \cite{ck}. There were two conducted experiments: the first one was tested on public datasets demonstrating a higher performance than other existing strategies for facial expression recognition and the second one involved autistic children for monitoring their behavior. The results are presented in figure \ref{fig:ck1}, respectively in figure \ref{fig:ck2}. The happy emotions is the best classified emotion reaching 100\% in all the tests. 
 
-Having an external processing unit, a number of 25 frames processed per second (25fps) was obtained, assuring a natural human-robot interaction.
+Having an external processing unit, it was obtained a number of 25 frames processed per second (fps), assuring a natural human-robot interaction. 
 \begin{figure}
 	\centering
 
@@ -519,11 +652,42 @@ Having an external processing unit, a number of 25 frames processed per second (
   \end{subfigure} 
 \end{figure}
 
-==============to continue 
+\section{Sophia}
+\cite{hanson-sophia} challenged themselves to create a highly-sensitive AI embedded in a social robot using a deep learning approach: convolutional neural networks. They obtained a validation accuracy of 63,17\% with 20\% of the training data used for validation on a combined dataset consisting of CK+ and FER2013. Their results are presented as a confusion matrix in figure \ref{fig:hanson_sophia}. Keeping in mind that the happy emotion has the most numerous images, it is not a surprise that this emotion is the best detected emotion and that the algorithm did not perform well on the disgust emotion. 
+
+\begin{figure}[h]
+	\centering
+
+  	\includegraphics[width=\linewidth]{./images/2_hanson_sophia}\hfill
+
+    \caption{Confusion matrix of the study from \cite{hanson-sophia}}  
+    \label{fig:hanson_sophia}
+\end{figure}
 
 \section{Other papers focused on emotion recognition}
+\cite{case-study-on-fer2013} did a study measuring the performance of two famous architectures (AlexNet and GoogLeNet) on the FER-2013 dataset. It involved two deep learning approaches, more specifically: the existence of an emotional content and the recognition of the exact emotional content. In figure \ref{fig:fer-study} can be seen the results. It is obvious that the models trained with the original Ekman dataset (without neutral emotion) performs better than the dataset with neutral emotion included, but both models reached a similar accuracy after 5000 iterations in each case. The training for the recognition of the 7 emotions (the yellow and blue lines) highlights the difference between the two architectures. AlexNet which is a shallow architecture surpasses the GoogLeNet's accuracy after 3000 iterations and manages to maintain a higher accuracy until the end. Being such a deep model, GoogLeNet learns much more slower and maybe if the training had continued, it would have been surpassed AlexNet which would have already been overtrained at that point. 
 
-=============== to do
+\begin{figure}
+	\centering
+
+  	\includegraphics[width=\linewidth]{./images/2_fer_study}\hfill
+
+    \caption{Result of the study from \cite{case-study-on-fer2013}}  
+    \label{fig:fer-study}
+\end{figure}
+
+The paper from \cite{cnn-architectures-for-fer} trained and analyzed 3 different architectures: a sequential one, one inspired from XCEPTION and ResNet50. Their dataset consisted of FER2013. Besides the plain models, they came with several small changes in order to improve the accuracy: they generated variations for the dataset histogram equalization and frontalization and boosted the latter architecture's accuracy using transfer learning. The experimental results conducted to the conclusion that ResNet50 architecture obtained the best accuracy through transfer learning, 71,75\%. The confusion matrix of this trained model is presented in figure \ref{resnet50-study}. The best 3 detected emotions are happiness, surprise and neutral and the least detected emotion is, surprisingly, fear which was mostly labeled as anger or sadness. Disgust, which has the least images in the dataset, is labeled correctly with an accuracy of 65\%, but in one out of four cases it is detected as anger. 
+
+\begin{figure}
+	\centering
+
+  	\includegraphics[width=\linewidth]{./images/2_resnet50}\hfill
+
+    \caption{Confusion matrix of the ained ResNet50 through transfer learning according to \cite{cnn-architectures-for-fer}}  
+    \label{fig:resnet50-study}
+\end{figure}
+
+To conclude, even though for humans the interpretation and detection of emotions takes place naturally and effortlessly, facial emotion recognition is still a challenge for machines to learn. Yet there are so many parameters that contribute at this process that machines cannot deal with. One of the biggest difficulties comes from the variety of human faces and the environmetal conditions, such as lighting, orientation of the face, shadows, camera quality. Another difficulty has its origin in the preprocessing process. Even the deepest architectures, like GoogLeNet, have difficulties in learning and obtaining a high accuracy. Besides the hard-obtaining accuracy, there are still gaps in improving computational burden and the speed of these algorithms, but the technology continues to develop. 
 
 \chapter{The Emotion Cat}
 \label{chapter:robot}
@@ -573,7 +737,14 @@ After starting the application, a new window will show (the fourth window) which
 \newpage
 
 \section{Hardware specifications}
-Schema eletrica
+\begin{figure}[h]
+	\centering
+
+  	\includegraphics[width=\linewidth]{./images/3_electric_schematic}\hfill
+
+    \caption{A schematic showing the connection between the electrical components.}  
+    \label{fig:electrical_schematic}
+\end{figure} 
 
 The Emotion Cat robot used in this thesis is shown in figure \ref{fig:hardware-cat}. The robot is 180mm tall, 215mm long and 100mm wide. It weighs 290 grams. Each leg has 2 servomotors which make possible the move of the robot, one at the hip joint and one at the knee joint, for rotating the upper segment and the lower segment of each leg forward and backward. The micro servos are model SG90 and have a maximum torque 1.8 kg-cm. They may fail to move to the desired position if the torque is insufficient or if the robot weighed more. The current weigh is almost at the edge for the servomotors' torque.
 
@@ -669,8 +840,9 @@ The Emotion Cat consists of 11 Micro Servomotors SG90 90\textdegree\footnote{htt
 The rest of the robot is 3D printed and consists of 15 different pieces and 30 in total with a thickness of 3 millimeters each. They were mechanically designed using the computer program SolidWorks\footnote{https://www.solidworks.com/}, prepared for printing via a slicing application for 3D printers, called Cura\footnote{https://ultimaker.com/software/ultimaker-cura} and, finally, 3D printed\footnote{https://www.creality3dofficial.com/products/creality-ender-3-pro-3d-printer}.  
 
 \subsection*{Assemble}
-The mechanical design and assemble can be seen in figure \ref{fig:3_hardware}, as well as figure \ref{fig:3_hardware2} with different views. Several changes were made in order to adapt the robot to the current tasks: in figure \ref{fig:3_lateral} there are 2 orifices for power supplying and monitor connecting purposes, the holes in the support of the Raspberry Pi board in figure \ref{fig:3_bottom} as a cooling method, 3 little mechanical pins for the camera fixation in figure \ref{fig:3_front}. The tail helps the robot to balance.
-==============spune despre papucii din cauciuc
+Figure \ref{fig:electrical_schematic} briefly shows how the electrical components are connected, while the mechanical design and assemble can be seen in figure \ref{fig:3_hardware}, as well as figure \ref{fig:3_hardware2} with different views. Several changes were made in order to adapt the robot to the current tasks: in figure \ref{fig:3_lateral} there are 2 orifices for power supplying and monitor connecting purposes, the holes in the support of the Raspberry Pi board in figure \ref{fig:3_bottom} as a cooling method, 3 little mechanical pins for the camera fixation in figure \ref{fig:3_front}. The tail helps the robot to balance.
+
+In addition, to avoid friction with the surface on which the robot is, it has rubber legs. 
 
 \begin{figure}
 	\centering
@@ -725,6 +897,15 @@ The mechanical design and assemble can be seen in figure \ref{fig:3_hardware}, a
 
 \section{Implementation}
 \label{chapter:implementation}
+
+\begin{figure}
+	\centering
+
+  	\includegraphics[width=\linewidth]{./images/3_flow}\hfill
+
+    \caption{The main flow of the application for the first functionality.}  
+    \label{fig:flow}
+\end{figure}
 
 Modular programming refers to the process of breaking a large and complex task into separate, simpler subtasks. Modularizing code in a large application has several advantages: simplicity (each module focuses on a part of the problem), maintainability (enforcing logical boundaries between different problem domains), reusability (reducing duplicate code by reusing an already defined functionality in a module) and scoping (avoiding collisions). 
 
@@ -908,23 +1089,22 @@ The last part of this class is represented by 3 short methods (figure \ref{fig:3
 \section{Experimental results}
 \label{chapter:results}
 
-====================== to do
-
 \subsection{Dataset}
 \label{subsection:dataset}
+This study used two datasets to train the convolutional neural network: FER2013 \footnote{https://www.kaggle.com/deadskull7/fer2013} and FER2013 supplied with CK+ dataset and 4429 personal images equally distributed for each emotion.
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{./images/3_fer2013_distribution}\hfill	
+	\caption{FER2013 emotions distribution}  
+    \label{fig:distribution}
+\end{figure}
 
-\subsection{Configurations}
-\label{chapter:configurations}
-- dropout pentru reducerea overfitting-ului
+The base of this experiment's dataset, FER2013, is a dataset consisting of 28709 labeled images from a wide range of people, representing 7 emotional contents: anger, disgust, fear, neutral, happines, sadness and surprise. It was created by collecting different images from Google searches with combined keywords associated to gender, ethnicity and age and applying an OpenCV face detection algorithm to create bounding boxes with the faces in the images. After this, human labelers cleaned up the resulted dataset and assigned each image to one of the above-mentioned emotions. The emotions distribution can be seen in figure \ref{distribution}.
 
-- modificarea lr
+CK+ contains 593 images with gradual emotional content, starting from a neutral expression to the maximum expression, gathered from 12 participants. 
 
-- a adamului (optimizarii)
-
-- pentru o discutie de final: https://www.kaggle.com/ashishpatel26/tutorial-facial-expression-classification-keras
-
-- pentru o conf matrix: https://github.com/gitshanks/fer2013/blob/master/confmatrix.py
+A percentage of 25\% from the FER2013 dataset is used for validation and the rest of it is used for training. The additional images are added only in the training section. 
 
 \subsection{Performances}
 \label{chapter:performances}
@@ -950,9 +1130,16 @@ In figure \ref{fig:result2}, the learning rate was changed to 0.0001. The result
 
 After supplying the original dataset with the CK+ dataset and a set of personal images (see \ref{subsection:dataset}), the best model was trained. After reaching its maximum performance, the best accuracy was 62,12\%. Although the training accuracy improved faster, per total the model was weaker. 
 
+- pentru o discutie de final: https://www.kaggle.com/ashishpatel26/tutorial-facial-expression-classification-keras
+
+- pentru o conf matrix: https://github.com/gitshanks/fer2013/blob/master/confmatrix.py
+
 %======== CONCLUSIONS ========
-\chapter*{Conclusions and Future work}
+\chapter*{Conclusions and future work}
 \addcontentsline{toc}{chapter}{CONCLUSIONS}
+
+Social robots have practical uses in various fields, such as entertainment, research and medical field. The latter mentioned one needs them as a therapy for people suffering from cognitive disorders (autism, dementia, schizophrenia) in order to improve their social and emotional skills (in case of autism) and to calm and relax them (in case of dementia or schizophrenia). Human communication is a complex process. Kinesics, as a part of human communication, is espacially important, as facial expressions play an important role. The ability to react depending on the emotion of the human lays the foundation for establishing a meaningful nonverbal communication between humans and robots.
+
 In this work a social robot called Emotion Cat was designed, built and developed in order to recognize a face using the Viola-Jones algorithm, predict the emotions of its owner using deep learning through a convolutional neural network and react at the resulting emotion. The accurate analysis and interpretation of the human facial expressions is essential for social robots in order to fulfill their purpose, being it medical or for entertainment. Even though, reading a facial expression might happen naturally for a human, for machines it still represents a great challenge. Using hobbyists electronic parts increased the risks and limitations and lead to several crucial tradeoffs, such as the limited number of layers of CNN in order to raise the speed, but decrease the accuracy of the algorithm. 
 
 For future work, there are several improvements that would bring this project closer to realistic standards as a social robot used by people suffering from ASD. The emotion recognition agent could reach a better accuracy if it would analyze the voice tone and the body language of the user. Another improvement would be the integration of an algorithm able to move and calibrate the camera so that the user's face to be centered and easier to read. Better servomotors, with higher torque would help getting over the motion control problems and limitations of the robot. Several sensors, such as ultrasonic sensor for measuring distances or a gyroscope for balance calibrations, would increase the robot's credibility and it would seem more real and practical. And finally, an incorporated battery would confer full autonomy and offer a wider range of expansions of the robot. 
@@ -987,6 +1174,11 @@ G. Bledt, M. J. Powell, B. Katz, J. Di Carlo, P. M. Wensing and S. Kim:
 \textit{MIT Cheetah 3: Design and Control of a Robust, Dynamic Quadruped Robot}, 
 2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Madrid, 2018, pp. 2245-2252, doi: 10.1109/IROS.2018.8593885.
 
+\bibitem{cnn-architectures-for-fer}
+G. C. Poru\c sniuc, F. Leon, R. Timofte and C. Miron:
+\textit{Convolutional Neural Networks Architectures for Facial Expression Recognition},
+2019 E-Health and Bioengineering Conference (EHB), Iasi, Romania, 2019, pp. 1-6, doi: 10.1109/EHB47216.2019.8969930.
+
 \bibitem{android-social-skills}
 G. Pioggia, R. Igliozzi, M. Ferro, A. Ahluwalia, F. Mura-tori, and D. De Rossi:
 \textit{An android for enhancing social skills and emotion recognition in people with autism},
@@ -1018,9 +1210,20 @@ M. Leo et al.:
 \textit{Automatic Emotion Recognition in Robot-Children Interaction for ASD Treatment},
 2015 IEEE International Conference on Computer Vision Workshop (ICCVW), Santiago, 2015, pp. 537-545, doi: 10.1109/ICCVW.2015.76.
 
+\bibitem{hanson-sophia}
+Mossbridge, J., \& Monroe, E. (2018). 
+\textit{Team Hanson-Lia-SingularityNet: Deep-learning Assessment of Emotional Dynamics Predicts Self-Transcendent Feelings During Constrained Brief Interactions with Emotionally Responsive AI Embedded in Android Technology},
+Unpublished XPrize Submission, 2018.
+
 \bibitem{the-cognitive-structure-of-emotions}
 Ortony, A., Clore, G., Collins, A.: 
 \textit{The Cognitive Structure of Emotions}, Cambridge University Press, Cambridge (1988).
+
+\bibitem{case-study-on-fer2013}
+Panagiotis Giannopoulos, Isidoros Perikos and Ioannis Hatzilygeroudis:
+\textit{Deep Learning Approaches for Facial Emotion Recognition: A Case Study on FER-2013}, 
+Advances in Hybridization of Intelligent Methods: Models, Systems and Applications, 2018, 1-16,
+\texttt{https://doi.org/10.1007/978-3-319-66790-4\_1}
 
 \bibitem{automatic-analysis-of-facial-expressions}
 Pantic, M., Rothkrantz, L.J.M.: 
